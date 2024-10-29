@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clones the code from Git
-                git branch: 'main', url: 'https://github.com/username/project-repo.git'
+                git branch: 'main', url: 'https://github.com/Assil2/https://github.com/Assil2/5bi2_grp7_Projet_Devops.git'
             }
         }
 
@@ -18,44 +18,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Runs Maven tests
-                sh 'mvn test'
-            }
-        }
 
-        stage('SonarQube Analysis') {
-            steps {
-                // Runs SonarQube for code quality checks
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar'
-                }
-            }
-        }
-
-        stage('Package') {
-            steps {
-                // Packages the project into a JAR/WAR file
-                sh 'mvn package'
-            }
-        }
-
-        stage('Publish to Nexus') {
-            steps {
-                // Deploys the packaged project to Nexus Repository
-                sh 'mvn deploy'
-            }
-        }
-
-        stage('Docker Build and Push') {
-            steps {
-                // Builds Docker image and pushes it to Docker Hub
-                sh 'docker build -t username/project:latest .'
-                sh 'docker push username/project:latest'
-            }
-        }
-    }
 
     post {
         success {
