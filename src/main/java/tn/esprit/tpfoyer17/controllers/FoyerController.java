@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer17.entities.Foyer;
-import tn.esprit.tpfoyer17.services.IFoyerService;
+import tn.esprit.tpfoyer17.services.interfaces.IFoyerService;
 
 import java.util.List;
 
@@ -16,34 +16,30 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("api/foyers")
 public class FoyerController {
+    @GetMapping("/retrieveAllFoyers")
+    public List<Foyer> retrieveAllFoyers() {
+        return foyerService.retrieveAllFoyers();
+    }
+@PostMapping("/addFoyer")
+    public Foyer addFoyer(@RequestBody Foyer f) {
+        return foyerService.addFoyer(f);
+    }
+@PutMapping("/updateFoyer")
+    public Foyer updateFoyer( @RequestBody Foyer f) {
+        return foyerService.updateFoyer(f);
+    }
+@GetMapping("/retrieveFoyer/{idFoyer}")
+    public Foyer retrieveFoyer(@PathVariable("idFoyer") long idFoyer) {
+        return foyerService.retrieveFoyer(idFoyer);
+    }
+@DeleteMapping("/removeFoyer")
+    public void removeFoyer(@PathVariable("idFoyer") long idFoyer) {
+        foyerService.removeFoyer(idFoyer);
+    }
+@PutMapping("/ajouterFoyerEtAffecterAUniversite/{idUniversite}")
+    public Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer, @PathVariable("idUniversite") long idUniversite) {
+        return foyerService.ajouterFoyerEtAffecterAUniversite(foyer, idUniversite);
+    }
+
     IFoyerService foyerService;
-
-    @PostMapping("add")
-    public Foyer addingFoyer(@RequestBody Foyer foyer){
-        return foyerService.addFoyer(foyer);
-    }
-    @GetMapping("getAll")
-    public List<Foyer> gettingAllFoyer(){
-        return foyerService.getAllFoyers();
-    }
-
-    @GetMapping("get")
-    public Foyer gettingFoyer(@RequestParam("idFoyer") long idFoyer){
-        return foyerService.getFoyerById(idFoyer);
-    }
-
-    @DeleteMapping("delete/{idFoyer}")
-    public void deletingFoyer(@PathVariable("idFoyer") long idFoyer){
-        foyerService.deleteFoyer(idFoyer);
-    }
-
-    @PutMapping("update")
-    public Foyer updatingFoyer(@RequestBody Foyer foyer){
-        return foyerService.updateFoyer(foyer);
-    }
-    @PostMapping("ajouter-affecter")
-    Foyer ajouterFoyerEtAffecterAUniversite (@RequestBody Foyer foyer, @RequestParam("idUniversite") long idUniversite){
-        return foyerService.ajouterFoyerEtAffecterAUniversite(foyer,idUniversite);
-    }
-
 }
