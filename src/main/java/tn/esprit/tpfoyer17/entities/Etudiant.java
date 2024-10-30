@@ -1,7 +1,8 @@
 package tn.esprit.tpfoyer17.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -34,7 +35,6 @@ public class Etudiant implements Serializable {
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "etudiants")
-    @JsonIgnore
     Set<Reservation> reservations;
 
 }

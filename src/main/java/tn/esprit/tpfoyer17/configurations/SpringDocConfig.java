@@ -1,9 +1,8 @@
 package tn.esprit.tpfoyer17.configurations;
 
-import io.swagger.v3.oas.models.*;
+import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
-
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,12 +23,12 @@ public class SpringDocConfig {
 
     public Contact contactAPI() {
         return new Contact().name("Equipe ASI II")
-                .email("chahnez.sardouk@esprit.tn")
-                .url("https://www.linkedin.com/in/**********/");
+                .email("*************@esprit.tn")
+                .url("https://www.linkedin.com/in//");
     }
 
     @Bean
-    public GroupedOpenApi chambreApi() {
+    public GroupedOpenApi chambrePublicApi() {
         return GroupedOpenApi.builder()
                 .group("Only Chambre Management API")
                 .pathsToMatch("/api/chambres/**")
@@ -37,7 +36,7 @@ public class SpringDocConfig {
                 .build();
     }
     @Bean
-    public GroupedOpenApi blocApi() {
+    public GroupedOpenApi blocPublicApi() {
         return GroupedOpenApi.builder()
                 .group("Only Bloc Management API")
                 .pathsToMatch("/api/blocs/**")
@@ -45,7 +44,7 @@ public class SpringDocConfig {
                 .build();
     }
     @Bean
-    public GroupedOpenApi reservationApi() {
+    public GroupedOpenApi reservationPublicApi() {
         return GroupedOpenApi.builder()
                 .group("Only Reservation Management API")
                 .pathsToMatch("/api/reservations/**")
@@ -53,7 +52,7 @@ public class SpringDocConfig {
                 .build();
     }
     @Bean
-    public GroupedOpenApi foyerApi() {
+    public GroupedOpenApi foyerPublicApi() {
         return GroupedOpenApi.builder()
                 .group("Only Foyer Management API")
                 .pathsToMatch("/api/foyers/**")
@@ -61,21 +60,20 @@ public class SpringDocConfig {
                 .build();
     }
     @Bean
-    public GroupedOpenApi universiteApi() {
+    public GroupedOpenApi etudiantPublicApi() {
         return GroupedOpenApi.builder()
-                .group("Only Universite Management API")
-                .pathsToMatch("/api/univeristes/**")
+                .group("Only Etudiant Management API")
+                .pathsToMatch("/api/etudiants/**")
                 .pathsToExclude("**")
                 .build();
     }
     @Bean
-   public GroupedOpenApi etudiantApi() {
+    public GroupedOpenApi universitePublicApi() {
         return GroupedOpenApi.builder()
-                .group("Only Etudiant Management API")
-                .pathsToMatch("/api/etudiants/**")
-               .pathsToExclude("**")
+                .group("Only Universite Management API")
+                .pathsToMatch("/api/universites/**")
+                .pathsToExclude("**")
                 .build();
     }
-
 }
 

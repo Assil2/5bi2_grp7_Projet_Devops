@@ -4,12 +4,11 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer17.entities.Reservation;
-import tn.esprit.tpfoyer17.services.interfaces.IReservationService;
+import tn.esprit.tpfoyer17.services.IReservationService;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,41 +17,39 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("api/reservations")
 public class ReservationController {
-    @GetMapping("/retrieveAllReservation")
-    public List<Reservation> retrieveAllReservation() {
-        return reservationService.retrieveAllReservation();
-    }
-    @PutMapping("/updateReservation")
+    IReservationService reservationService;
 
-    public Reservation updateReservation(@RequestBody Reservation res) {
-        return reservationService.updateReservation(res);
+
+    @GetMapping("getAll")
+    public List<Reservation> gettingAllReservation(){
+        return reservationService.getAllReservations();
     }
- @GetMapping("/retrieveReservation/{idReservation}")
-    public Reservation retrieveReservation(@PathVariable("idReservation") String idReservation) {
-        return reservationService.retrieveReservation(idReservation);
+
+    @GetMapping("get")
+    public Reservation gettingReservation(@RequestParam("idReservation") String idReservation){
+        return reservationService.getReservationById(idReservation);
     }
-@PostMapping("/ajouterReservation/{idChambre}/{cinEtudiant}")
-    public Reservation ajouterReservation( @PathVariable("idChambre") long idChambre,
-                                           @PathVariable("cinEtudiant") long cinEtudiant) {
-        return reservationService.ajouterReservation(idChambre, cinEtudiant);
+
+    @DeleteMapping("delete/{idReservation}")
+    public void deletingReservation(@PathVariable("idReservation") String idReservation){
+        reservationService.deleteReservation(idReservation);
     }
-@PutMapping("/annulerReservation/{cinEtudiant}")
-    public Reservation annulerReservation(@PathVariable("cinEtudiant") long cinEtudiant) {
+
+    @PutMapping("update")
+    public Reservation updatingReservation(@RequestBody Reservation reservation){
+        return reservationService.updateReservation(reservation);
+    }
+
+    @PutMapping("ajouter-reservation")
+    public Reservation ajouterReservation (@RequestParam("idChambre") long idChambre, @RequestParam("cinEtudiant") long cinEtudiant){
+        return reservationService.ajouterReservation(idChambre,cinEtudiant);
+    }
+    @PutMapping("annuler-reservation")
+    public Reservation annulerReservation (@RequestParam("cinEtudiant") long cinEtudiant){
         return reservationService.annulerReservation(cinEtudiant);
     }
-@GetMapping("/getReservationParAnneeUniversitaireEtNomUniversite/{anneeUniversite}/{nomUniversite}")
-    public List<Reservation> getReservationParAnneeUniversitaireEtNomUniversite(
-            @PathVariable("anneeUniversite") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate anneeUniversite,
-            @PathVariable("nomUniversite") String nomUniversite) {
-        return reservationService.getReservationParAnneeUniversitaireEtNomUniversite(anneeUniversite, nomUniversite);
+    @GetMapping("get-reservation-annee-universitaire-nom-universitaire")
+    public List<Reservation>  getReservationParAnneeUniversitaireEtNomUniversite(@RequestParam("anneeUniversite") Date anneeUniversite, @RequestParam("nomUniversite") String nomUniversite){
+        return reservationService.getReservationParAnneeUniversitaireEtNomUniversite(anneeUniversite,nomUniversite);
     }
-@GetMapping("/getReservationKeyWord/{anneeUniversite}/{nomUniversite}")
-    public List<Reservation> getReservationKeyWord( @PathVariable("anneeUniversite")
-                                                                                        @DateTimeFormat(iso =
-                                                                                                DateTimeFormat.ISO.DATE)LocalDate anneeUniversite,
-                                                    @PathVariable("nomUniversite") String nomUniversite) {
-        return reservationService.getReservationParAnneeUniversitaireEtNomUniversiteKeyWord(anneeUniversite, nomUniversite);
-    }
-
-    IReservationService reservationService;
 }

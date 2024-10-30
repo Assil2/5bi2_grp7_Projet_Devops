@@ -6,5 +6,4 @@ import tn.esprit.tpfoyer17.entities.Foyer;
 
 @Repository
 public interface FoyerRepository extends CrudRepository<Foyer,Long> {
-    Foyer findByUniversiteIdUniversite(Long idUniversite);
 }
