@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.tpfoyer17.entities.Bloc;
 import tn.esprit.tpfoyer17.entities.Chambre;
 import tn.esprit.tpfoyer17.entities.enumerations.TypeChambre;
-import tn.esprit.tpfoyer17.services.interfaces.IChambreService;
+import tn.esprit.tpfoyer17.services.ChambreService;
+import tn.esprit.tpfoyer17.services.IChambreService;
 
 import java.util.List;
 
@@ -18,56 +18,46 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("api/chambres")
 public class ChambreController {
-    @GetMapping("/retrieveAllChambres")
-    public List<Chambre> retrieveAllChambres() {
-        return chambreService.retrieveAllChambres();
-    }
-
-    @PostMapping("/addChambre")
-    public Chambre addChambre(@RequestBody Chambre c) {
-        return chambreService.addChambre(c);
-    }
-
-    @PutMapping("/updateChambre")
-    public Chambre updateChambre(@RequestBody Chambre c) {
-        return chambreService.updateChambre(c);
-    }
-
-    @GetMapping("/retrieveChambre/{idChambre}")
-    public Chambre retrieveChambre(@PathVariable("idChambre") long idChambre) {
-        return chambreService.retrieveChambre(idChambre);
-    }
-
-    @GetMapping("/findByTypeChambre")
-    public List<Chambre> findByTypeChambre() {
-        return chambreService.findByTypeChambre();
-    }
-
-    @PutMapping("/affecterChambresABloc/{idBloc}")
-    public Bloc affecterChambresABloc(@RequestBody List<Long> numChambre,
-                                      @PathVariable("idBloc") long idBloc) {
-        return chambreService.affecterChambresABloc(numChambre, idBloc);
-    }
-
-    @GetMapping("/getChambresParNomUniversite/{nomUniversite}")
-    public List<Chambre> getChambresParNomUniversite(@PathVariable("nomUniversite") String nomUniversite) {
-        return chambreService.getChambresParNomUniversite(nomUniversite);
-    }
-
-    @GetMapping("/getChambresParBlocEtType/{idBloc}/{typeC}")
-    public List<Chambre> getChambresParBlocEtType(@PathVariable("idBloc") long idBloc, @PathVariable("typeC") TypeChambre typeC) {
-        return chambreService.getChambresParBlocEtType(idBloc, typeC);
-    }
-
-    @GetMapping("/getChambresParBlocEtTypeJPQL/{idBloc}/{typeC}")
-    public List<Chambre> getChambresParBlocEtTypeJPQL(@PathVariable("idBloc") long idBloc, @PathVariable("typeC") TypeChambre typeC) {
-        return chambreService.getChambresParBlocEtTypeJPQL(idBloc, typeC);
-    }
-@GetMapping("/getChambresNonReserveParNomUniversiteEtTypeChambre/{nomUniversite}/{type}")
-    public List<Chambre> getChambresNonReserveParNomUniversiteEtTypeChambre(@PathVariable("nomUniversite") String nomUniversite,
-                                                                         @PathVariable("type") TypeChambre type) {
-        return chambreService.getChambresNonReserveParNomUniversiteEtTypeChambre(nomUniversite, type);
-    }
-
     IChambreService chambreService;
+    @PostMapping("add")
+    public Chambre addingChambre(@RequestBody Chambre chambre){
+        return chambreService.addChambre(chambre);
+    }
+    @GetMapping("getAll")
+    public List<Chambre> gettingAllChambre(){
+        return chambreService.getAllChambres();
+    }
+
+    @GetMapping("get")
+    public Chambre gettingChambre(@RequestParam("idChambre") long idChambre){
+        return chambreService.getChambreById(idChambre);
+    }
+
+    @DeleteMapping("delete/{idChambre}")
+    public void deletingChambre(@PathVariable("idChambre") long idChambre){
+        chambreService.deleteChambre(idChambre);
+    }
+
+    @PutMapping("update")
+    public Chambre updatingChambre(@RequestBody Chambre chambre){
+        return chambreService.updateChambre(chambre);
+    }
+
+    @GetMapping("get-par-nom-universite")
+    public List<Chambre>  getChambresParNomUniversite( String nomUniversite) {
+        return chambreService.getChambresParNomUniversite(nomUniversite);
+
+    }
+    @GetMapping("get-par-bloc-type-keyword")
+    public List<Chambre> getChambresParBlocEtTypeKeyWord(@RequestParam("idBloc") long idBloc,@RequestParam("typeC") TypeChambre typeC) {
+        return getChambresParBlocEtTypeKeyWord(idBloc,typeC);
+    }
+    @GetMapping("get-par-bloc-type-jpql")
+    public List<Chambre> getChambresParBlocEtTypeJPQL(@RequestParam("idBloc") long idBloc,@RequestParam("typeC") TypeChambre typeC) {
+        return chambreService.getChambresParBlocEtTypeJPQL(idBloc,typeC);
+    }
+    @GetMapping("get-non-reserve-par-nom-universite-typechambre")
+    public List<Chambre>  getChambresNonReserveParNomUniversiteEtTypeChambre( @RequestParam("nomUniversite") String nomUniversite,@RequestParam("type") TypeChambre type) {
+        return chambreService.getChambresNonReserveParNomUniversiteEtTypeChambre(nomUniversite,type);
+    }
 }

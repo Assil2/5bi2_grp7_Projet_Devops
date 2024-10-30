@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer17.entities.Universite;
-import tn.esprit.tpfoyer17.services.interfaces.IUniversiteService;
+import tn.esprit.tpfoyer17.services.IUniversiteService;
 
 import java.util.List;
 
@@ -16,31 +16,39 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("api/univeristes")
 public class UniversiteController {
-    @GetMapping("/retrieveAllUniversities")
-    public List<Universite> retrieveAllUniversities() {
-        return universiteService.retrieveAllUniversities();
+    IUniversiteService universiteService;
+
+    @PostMapping("add")
+    public Universite addingUniversite(@RequestBody Universite universite){
+        return universiteService.addUniversite(universite);
     }
-@PostMapping("/addUniversity")
-    public Universite addUniversity(@RequestBody Universite u) {
-        return universiteService.addUniversity(u);
-    }
-@PutMapping("/updateUniversity")
-    public Universite updateUniversity(@RequestBody Universite u) {
-        return universiteService.updateUniversity(u);
-    }
-@GetMapping("/retrieveUniversity/{idUniversity}")
-    public Universite retrieveUniversity(@PathVariable("idUniversity") long idUniversity) {
-        return universiteService.retrieveUniversity(idUniversity);
-    }
-@PutMapping("/affecterFoyerAUniversite/{idFoyer}/{nomUniversite}")
-    public Universite affecterFoyerAUniversite(@PathVariable("idFoyer") long idFoyer, @PathVariable("nomUniversite") String nomUniversite) {
-        return universiteService.affecterFoyerAUniversite(idFoyer, nomUniversite);
-    }
-@PutMapping("/desaffecterFoyerAUniversite/{idUniversite}")
-    public Universite desaffecterFoyerAUniversite(
-                                                  @PathVariable("idUniversite") long idUniversite) {
-        return universiteService.desaffecterFoyerAUniversite( idUniversite);
+    @GetMapping("getAll")
+    public List<Universite> gettingAllUniversite(){
+        return universiteService.getAllUniversites();
     }
 
-    IUniversiteService universiteService;
+    @GetMapping("get")
+    public Universite gettingUniversite(@RequestParam("idUniversite") long idUniversite){
+        return universiteService.getUniversiteById(idUniversite);
+    }
+
+    @DeleteMapping("delete/{idUniversite}")
+    public void deletingUniversite(@PathVariable("idUniversite") long idUniversite){
+        universiteService.deleteUniversite(idUniversite);
+    }
+
+    @PutMapping("update")
+    public Universite updatingUniversite(@RequestBody Universite universite){
+        return universiteService.updateUniversite(universite);
+    }
+
+    @PutMapping("affecter-foyer-universite")
+    public Universite affecterFoyerAUniversite (@RequestParam("idFoyer") long idFoyer, @RequestParam("nomUniversite") String nomUniversite){
+        return universiteService.affecterFoyerAUniversite(idFoyer,nomUniversite);
+    }
+    @PutMapping("desaffecter-foyer-universite")
+    public Universite desaffecterFoyerAUniversite (@RequestParam("idUniversite") long idUniversite){
+        return universiteService.desaffecterFoyerAUniversite(idUniversite);
+
+    }
 }

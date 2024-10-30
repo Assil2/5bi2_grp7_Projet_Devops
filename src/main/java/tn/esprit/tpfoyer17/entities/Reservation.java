@@ -1,12 +1,10 @@
 package tn.esprit.tpfoyer17.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -21,15 +19,14 @@ import java.util.Set;
 public class Reservation implements Serializable {
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     String idReservation;
 
-    LocalDate anneeUniversitaire;
+    Date anneeUniversitaire;
 
     boolean estValide;
 
     @ToString.Exclude
     @ManyToMany
-    @JsonIgnore
     Set<Etudiant> etudiants;
 }

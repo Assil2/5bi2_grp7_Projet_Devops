@@ -28,15 +28,12 @@ public class Foyer implements Serializable {
     long capaciteFoyer;
 
     @ToString.Exclude
-    @JsonIgnore
     @OneToOne(mappedBy = "foyer")
+    @JsonIgnore
     Universite universite;
 
+    @JsonIgnore
     @ToString.Exclude
-    //@JsonIgnore
-    @OneToMany(mappedBy = "foyer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "foyer",cascade = CascadeType.ALL)
     Set<Bloc> blocs;
-
-
-
 }
