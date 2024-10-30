@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import tn.esprit.tpfoyer17.entities.enumerations.TypeChambre;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,13 +30,13 @@ public class Chambre implements Serializable {
     @Enumerated(EnumType.STRING)
     TypeChambre typeChambre;
 
-    @JsonIgnore
     @ToString.Exclude
     @ManyToOne
+    @JsonIgnore
     Bloc bloc;
 
-    @JsonIgnore
     @ToString.Exclude
     @OneToMany
-    Set<Reservation> reservations;
+    @JsonIgnore
+    Set<Reservation> reservations ;
 }

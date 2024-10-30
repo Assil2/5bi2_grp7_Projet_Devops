@@ -1,5 +1,6 @@
 package tn.esprit.tpfoyer17.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -27,5 +28,6 @@ public class Universite implements Serializable {
 
     @ToString.Exclude
     @OneToOne
+    @JsonIgnore
     Foyer foyer;
 }
