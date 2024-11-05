@@ -1,6 +1,8 @@
 package tn.esprit.tpfoyer.control;
 
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer.entity.Reservation;
@@ -14,61 +16,30 @@ import java.util.List;
 @RequestMapping("/reservation")
 public class ReservationRestController {
 
-    IReservationService reservationService;
+    private static final Logger logger = LogManager.getLogger(ReservationRestController.class);
+
+    private final IReservationService reservationService;
 
     // http://localhost:8089/tpfoyer/reservation/retrieve-all-reservations
     @GetMapping("/retrieve-all-reservations")
     public List<Reservation> getReservations() {
+        logger.info("Request to retrieve all reservations");
         List<Reservation> listReservations = reservationService.retrieveAllReservations();
+        logger.debug("Reservations retrieved: {}", listReservations);
         return listReservations;
     }
+
     // http://localhost:8089/tpfoyer/reservation/retrieve-reservation/8
     @GetMapping("/retrieve-reservation/{reservation-id}")
     public Reservation retrieveReservation(@PathVariable("reservation-id") String rId) {
-        Reservation reservation = reservationService.retrieveReservation(rId);
-        return reservation;
+        logger.info("Request to retrieve reservation with ID: {}", rId);
+        try {
+            Reservation reservation = reservationService.retrieveReservation(rId);
+            logger.debug("Reservation retrieved: {}", reservation);
+            return reservation;
+        } catch (Exception e) {
+            logger.error("Error retrieving reservation with ID: {}", rId, e);
+            throw e;
+        }
     }
-
-
-
-
-
-
-
-    @GetMapping("/retrieve-reservation-date-status/{d}/{v}")
-    public List<Reservation> retrieveReservationParDateEtStatus
-            (@PathVariable("d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d, @PathVariable("v") boolean b) {
-        return reservationService.trouverResSelonDateEtStatus(d, b);
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // http://localhost:8089/tpfoyer/reservation/add-reservation
-    @PostMapping("/add-reservation")
-    public Reservation addReservation(@RequestBody Reservation r) {
-        Reservation reservation = reservationService.addReservation(r);
-        return reservation;
-    }
-
-    // http://localhost:8089/tpfoyer/reservation/remove-reservation/{reservation-id}
-    @DeleteMapping("/remove-reservation/{reservation-id}")
-    public void removeReservation(@PathVariable("reservation-id") String rId) {
-        reservationService.removeReservation(rId);
-    }
-
-    // http://localhost:8089/tpfoyer/reservation/modify-reservation
-    @PutMapping("/modify-reservation")
-    public Reservation modifyReservation(@RequestBody Reservation r) {
-        Reservation reservation = reservationService.modifyReservation(r);
-        return reservation;
-    }
-
 }
