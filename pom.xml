@@ -19,22 +19,9 @@
     <distributionManagement>
         <repository>
             <id>foyerdevops</id>
-            <url>http://192.168.33.10:8081/repository/foyerdevops/</url>
+            <url>http://192.168.33.10:8081/repository/foyerdevops</url>
         </repository>
     </distributionManagement>
-    <repositories>
-        <repository>
-            <id>foyerdevops</id>
-            <url>http://192.168.33.10:8081/repository/foyerdevops/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
 
         <dependency>
