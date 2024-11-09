@@ -19,7 +19,7 @@
     <distributionManagement>
         <repository>
             <id>foyerdevops</id>
-            <url>http://192.168.33.10:8081/repository/foyerdevops</url>
+            <url>http://192.168.33.10:8081/repository/foyerdevops/</url>
         </repository>
     </distributionManagement>
     <dependencies>
