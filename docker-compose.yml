@@ -14,7 +14,7 @@ services:
         protocol: tcp
 
 
-  springboot-app:
+  springboot-application:
 
     image: amira360/tp-foyer:latest
     container_name: springboot-app
