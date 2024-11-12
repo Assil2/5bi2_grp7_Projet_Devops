@@ -15,6 +15,10 @@
     <description>tp-foyer</description>
     <properties>
         <java.version>17</java.version>
+        <sonar.host.url>http://192.168.33.10:9000</sonar.host.url>
+        <sonar.login>sqp_23cd0f7d202a7eb9072cb399bebba703747f21b4</sonar.login>
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+
     </properties>
     <dependencies>
 
@@ -73,11 +77,18 @@
             <scope>test</scope>
         </dependency>
 
-
-
-
-
     </dependencies>
+
+    <!-- Deploy to Nexus -->
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository</name>
+            <url>http://192.168.33.10:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+
 
     <build>
         <plugins>
@@ -93,6 +104,13 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
+
         </plugins>
     </build>
 
