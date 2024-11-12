@@ -7,14 +7,14 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'foyer'
+      MYSQL_DATABASE: 'foyerdb'
     ports:
       - target: 3306
         published: 3306
         protocol: tcp
 
 
-  springboot-application:
+  springboot-app:
 
     image: amira360/tp-foyer:latest
     container_name: springboot-app
@@ -26,7 +26,7 @@ services:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: root
-      MYSQL_DATABASE: foyer
+      MYSQL_DATABASE: foyerdb
     restart: on-failure
     ports:
       - 8089:8089
