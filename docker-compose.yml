@@ -1,0 +1,21 @@
+services:
+  application:
+    image: yasminebenlarbi/tpfoyer:5.0.0
+    ports:
+      - "8089:8089"
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/foyer?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+  mysqldb:
+    image: mysql:latest
+    volumes:
+      - "/home/user/Desktop/database:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: foyer
