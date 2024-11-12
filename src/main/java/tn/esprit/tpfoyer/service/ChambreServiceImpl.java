@@ -1,8 +1,8 @@
 package tn.esprit.tpfoyer.service;
 
-
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer.entity.Chambre;
 import tn.esprit.tpfoyer.entity.TypeChambre;
@@ -12,73 +12,40 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class ChambreServiceImpl implements IChambreService {
 
-    ChambreRepository chambreRepository;
+    private static final Logger log = LoggerFactory.getLogger(ChambreServiceImpl.class);
+
+    private final ChambreRepository chambreRepository;
 
     public List<Chambre> retrieveAllChambres() {
-        log.info("In Methodo retrieveAllChambres : ");
+        log.info("In method retrieveAllChambres:");
         List<Chambre> listC = chambreRepository.findAll();
-        log.info("Out of retrieveAllChambres : ");
-
+        log.info("Out of retrieveAllChambres:");
         return listC;
     }
 
     public Chambre retrieveChambre(Long chambreId) {
-        Chambre c = chambreRepository.findById(chambreId).get();
-        return c;
+        return chambreRepository.findById(chambreId).orElse(null);
     }
 
     public Chambre addChambre(Chambre c) {
-        Chambre chambre = chambreRepository.save(c);
-        return chambre;
+        return chambreRepository.save(c);
     }
 
     public Chambre modifyChambre(Chambre c) {
-        Chambre chambre = chambreRepository.save(c);
-        return c;
+        return chambreRepository.save(c);
     }
 
     public void removeChambre(Long chambreId) {
         chambreRepository.deleteById(chambreId);
     }
 
-
-
-
-
-
-
-    public List<Chambre> recupererChambresSelonTyp(TypeChambre tc)
-    {
+    public List<Chambre> recupererChambresSelonTyp(TypeChambre tc) {
         return chambreRepository.findAllByTypeC(tc);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public Chambre trouverchambreSelonEtudiant(long cin) {
-       //
-
         return chambreRepository.trouverChselonEt(cin);
     }
 }

@@ -9,56 +9,13 @@ import java.util.List;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 @Repository
  public interface BlocRepository extends JpaRepository<Bloc, Long> {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // Récupérer les Blocs qui ont une capacité supérieure à 50 :
 
    List<Bloc> findAllByCapaciteBlocGreaterThan(long c);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
    // Récupérer les Blocs qui ont une capacité inférieurs à 50 :
