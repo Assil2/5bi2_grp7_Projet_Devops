@@ -16,7 +16,7 @@ services:
 
   springboot-app:
 
-    image: amira360/tp-foyer:latest
+    image: amira36/tp-foyer:latest
     container_name: springboot-app
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://192.168.50.4:3306/foyerdb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
