@@ -1,6 +1,6 @@
 services:
   application:
-    image: yasminebenlarbi/tpfoyer:5.0.0
+    image: sarahbenyahmed/tpfoyer:5.0.0
     ports:
       - "8089:8089"
     depends_on:
