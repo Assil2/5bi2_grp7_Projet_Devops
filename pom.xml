@@ -17,6 +17,10 @@
         <jacoco.version>0.8.11</jacoco.version>
         <sonar.exclusions>**/schemas/**,**/config/**</sonar.exclusions>
         <sonar.coverage.exclusions>**/schemas/**,**/config/**</sonar.coverage.exclusions>
+
+        <!-- Configuration SonarQube pour les rapports de test et de couverture -->
+        <sonar.junit.reportPaths>target/test-classes/TEST-*.xml</sonar.junit.reportPaths>
+        <sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
     </properties>
     <dependencies>
         <dependency>
@@ -38,7 +42,6 @@
             <artifactId>log4j-api</artifactId>
             <version>2.20.0</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.mysql</groupId>
@@ -89,6 +92,8 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <!-- Plugin JaCoCo pour la couverture des tests -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -108,8 +113,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Plugin SonarQube -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.0.914</version>
+            </plugin>
         </plugins>
     </build>
+    
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>
